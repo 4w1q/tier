@@ -5,6 +5,11 @@ import json
 import os
 import asyncio
 from datetime import datetime
+from dotenv import load_dotenv
+
+# .env dosyasını yükle
+load_dotenv()
+
 # Flask için gerekli importlar
 from flask import Flask, render_template, jsonify, request
 from threading import Thread
@@ -14,7 +19,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.messages = True
 
-# Bot ve prefixini oluşturma - PREFIX ! OLARAK DEĞİŞTİRİLDİ
+# Bot ve prefixini oluşturma - PREFIX ! OLARAK AYARLANDI
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 # Veri dosyası yolu
@@ -42,7 +47,7 @@ async def on_ready():
     print(f'{bot.user.name} olarak giriş yapıldı!')
     print('------')
 
-# !siteye-ekle komutu - PREFIX DEĞİŞTİRİLDİ
+# !siteye-ekle komutu
 @bot.command(name='siteye-ekle')
 async def siteye_ekle(ctx):
     # Kullanıcı ile iletişim için mesaj gönder
@@ -160,7 +165,7 @@ async def siteye_ekle(ctx):
     kit_select.callback = kit_callback
     sent_message = await ctx.send(embed=embed, view=view)
 
-# Basit test komutu - kolayca test etmek için eklendi
+# Basit test komutu
 @bot.command(name='test')
 async def test(ctx):
     await ctx.send("Bot çalışıyor! Prefix: !")
@@ -199,8 +204,8 @@ def main():
     server_thread = Thread(target=run_web_server)
     server_thread.start()
     
-    # Discord botunu başlat - TOKENİ DEĞİŞTİRMELİSİN
-    bot.run('MTM5MzM2OTc1MjU0MTU5NzgwOA.Gklu5P.UD4Ixr9N0awVOo04LJkjp8U-ROTGkiuPlIMwP8')  # Tokeni değiştirmelisin
+    # Discord botunu başlat - TOKEN .env dosyasından okunuyor
+    bot.run(os.getenv('DISCORD_TOKEN'))
 
 if __name__ == "__main__":
     main()
