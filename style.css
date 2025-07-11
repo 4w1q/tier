@@ -1,0 +1,219 @@
+:root {
+    --primary-color: #7289da;
+    --secondary-color: #4e5d94;
+    --background-color: #36393f;
+    --card-color: #2f3136;
+    --text-color: #ffffff;
+    --text-secondary: #b9bbbe;
+    --highlight-color: #5865f2;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: var(--card-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.kit-selection {
+    background-color: var(--card-color);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.kit-selection h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.kit-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.kit-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-weight: bold;
+}
+
+.kit-btn:hover {
+    background-color: var(--highlight-color);
+    transform: translateY(-2px);
+}
+
+.kit-btn.active {
+    background-color: var(--highlight-color);
+    box-shadow: 0 0 10px rgba(88, 101, 242, 0.7);
+}
+
+.ranking-section {
+    background-color: var(--card-color);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.ranking-section h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+#ranking-description {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+.ranking-table-container {
+    overflow-x: auto;
+}
+
+.ranking-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.ranking-table th, .ranking-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #4f545c;
+}
+
+.ranking-table th {
+    background-color: var(--secondary-color);
+    color: white;
+    font-weight: bold;
+}
+
+.ranking-table tbody tr {
+    transition: background-color 0.3s;
+}
+
+.ranking-table tbody tr:hover {
+    background-color: #40444b;
+}
+
+.tier-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.tier1 { background-color: #795548; color: white; }
+.tier2 { background-color: #607d8b; color: white; }
+.tier3 { background-color: #00897b; color: white; }
+.tier4 { background-color: #1976d2; color: white; }
+.tier5 { background-color: #d32f2f; color: white; }
+
+.discord-section {
+    background-color: var(--card-color);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.discord-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.discord-section p {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.discord-section code {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 5px 8px;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.discord-btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.discord-btn:hover {
+    background-color: var(--highlight-color);
+    transform: translateY(-2px);
+    color: white;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .kit-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .kit-btn {
+        width: 80%;
+    }
+    
+    .ranking-table th, .ranking-table td {
+        padding: 8px 10px;
+    }
+}

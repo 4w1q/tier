@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PvP Kit Sıralaması</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PvP Kit Sıralaması</h1>
+            <p>Discord botumuz ile kaydedilen kit bilgileri ve sıralamaları</p>
+        </header>
+
+        <div class="kit-selection">
+            <h2>Kit Türleri</h2>
+            <div class="kit-buttons">
+                <button class="kit-btn" data-kit="Nethpot">Nethpot</button>
+                <button class="kit-btn" data-kit="Beast">Beast</button>
+                <button class="kit-btn" data-kit="Diapot">Diapot</button>
+                <button class="kit-btn" data-kit="Smp">SMP</button>
+                <button class="kit-btn" data-kit="Axe">Axe</button>
+                <button class="kit-btn" data-kit="Gapple">Gapple</button>
+                <button class="kit-btn" data-kit="Elytra">Elytra</button>
+                <button class="kit-btn" data-kit="Crystal">Crystal</button>
+            </div>
+        </div>
+
+        <div class="ranking-section">
+            <h2 id="ranking-title">Kit Sıralaması</h2>
+            <p id="ranking-description">Lütfen yukarıdan bir kit türü seçin</p>
+            
+            <div class="ranking-table-container">
+                <table class="ranking-table" id="ranking-table">
+                    <thead>
+                        <tr>
+                            <th>Sıra</th>
+                            <th>Kullanıcı</th>
+                            <th>İsim</th>
+                            <th>Tier</th>
+                            <th>Tarih</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ranking-data">
+                        <!-- Veriler JavaScript ile doldurulacak -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="discord-section">
+            <h2>Discord Botumuz</h2>
+            <p>Kendi kitinizi eklemek için Discord sunucumuza katılın ve <code>/siteye-ekle</code> komutunu kullanın!</p>
+            <a href="https://discord.gg/YOUR_INVITE_LINK" class="discord-btn" target="_blank">Discord'a Katıl</a>
+        </div>
+
+        <footer>
+            <p>&copy; 2023 PvP Kit Tracker - Tüm hakları saklıdır.</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
