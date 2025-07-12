@@ -1,10 +1,54 @@
-# .gitignore dosyası
+# Python bytecode dosyaları
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Dağıtım / paketleme klasörleri
+dist/
+build/
+*.egg-info/
+
+# Sanal ortam klasörleri
 env/
 venv/
+ENV/
+virtualenv/
+.venv/
+
+# Ortam değişkenleri ve gizli bilgiler
 .env
-*.log
+.env.local
+.env.development
+.env.test
+.env.production
+*.env
+
+# Bot verileri ve log dosyaları
 kit_data.json
+*.log
+logs/
+*.db
+*.sqlite
+*.sqlite3
+
+# IDE ve metin editörü dosyaları
+.idea/
 .vscode/
+*.swp
+*.swo
+.DS_Store
+*.sublime*
+.atom/
+
+# Geçici dosyalar
+tmp/
+temp/
+.cache/
+
+# Sistem dosyaları
+Thumbs.db
+desktop.ini
+
+# Token ve gizli bilgi içerebilecek dosyalar
+config.json
+secrets.json
