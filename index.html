@@ -3,64 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PvP Kit Sıralaması</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Kit Sıralaması</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>PvP Kit Sıralaması</h1>
-            <p>Discord botumuz ile kaydedilen kit bilgileri ve sıralamaları</p>
+        <header class="text-center my-5">
+            <h1 class="display-4">MC Tier Listesi</h1>
+            <p class="lead">Kit türünü seçerek sıralamaları görebilirsiniz</p>
         </header>
 
-        <div class="kit-selection">
-            <h2>Kit Türleri</h2>
-            <div class="kit-buttons">
-                <button class="kit-btn" data-kit="Nethpot">Nethpot</button>
-                <button class="kit-btn" data-kit="Beast">Beast</button>
-                <button class="kit-btn" data-kit="Diapot">Diapot</button>
-                <button class="kit-btn" data-kit="Smp">SMP</button>
-                <button class="kit-btn" data-kit="Axe">Axe</button>
-                <button class="kit-btn" data-kit="Gapple">Gapple</button>
-                <button class="kit-btn" data-kit="Elytra">Elytra</button>
-                <button class="kit-btn" data-kit="Crystal">Crystal</button>
+        <div class="row mb-5">
+            <div class="col-md-6 mx-auto">
+                <div class="d-flex justify-content-center">
+                    <div class="btn-group" role="group" id="kitButtons">
+                        <!-- Kit butonları JavaScript ile eklenecek -->
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="ranking-section">
-            <h2 id="ranking-title">Kit Sıralaması</h2>
-            <p id="ranking-description">Lütfen yukarıdan bir kit türü seçin</p>
-            
-            <div class="ranking-table-container">
-                <table class="ranking-table" id="ranking-table">
-                    <thead>
-                        <tr>
-                            <th>Sıra</th>
-                            <th>Kullanıcı</th>
-                            <th>İsim</th>
-                            <th>Tier</th>
-                            <th>Tarih</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ranking-data">
-                        <!-- Veriler JavaScript ile doldurulacak -->
-                    </tbody>
-                </table>
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h3 id="kitTitle" class="mb-0">Kit Sıralaması</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-info" id="infoMessage">
+                            Lütfen yukarıdan bir kit türü seçin.
+                        </div>
+                        <div id="userList" class="d-none">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Sıra</th>
+                                        <th>Kullanıcı</th>
+                                        <th>İsim</th>
+                                        <th>Tier</th>
+                                        <th>Tarih</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="userListBody">
+                                    <!-- Kullanıcı listesi JavaScript ile eklenecek -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="discord-section">
-            <h2>Discord Botumuz</h2>
-            <p>Kendi kitinizi eklemek için Discord sunucumuza katılın ve <code>/siteye-ekle</code> komutunu kullanın!</p>
-            <a href="https://discord.gg/YOUR_INVITE_LINK" class="discord-btn" target="_blank">Discord'a Katıl</a>
-        </div>
-
-        <footer>
-            <p>&copy; 2023 PvP Kit Tracker - Tüm hakları saklıdır.</p>
+        <footer class="text-center mt-5 mb-3">
+            <p class="text-muted">
+                <small>
+                    &copy; 2023 MC Tier Listesi | Discord Botu ile Yönetilir 
+                    <br>
+                    <a href="https://discord.gg/yourserver" target="_blank" class="text-decoration-none">
+                        <i class="fab fa-discord"></i> Discord Sunucumuza Katılın
+                    </a>
+                </small>
+            </p>
         </footer>
     </div>
 
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
 </body>
 </html>
