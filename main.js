@@ -1,84 +1,100 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Kit butonlarını seç
-    const kitButtons = document.querySelectorAll('.kit-btn');
-    const rankingTitle = document.getElementById('ranking-title');
-    const rankingDescription = document.getElementById('ranking-description');
-    const rankingData = document.getElementById('ranking-data');
-    
-    // Tier renklerini belirle
-    const tierClasses = {
-        'Tier1': 'tier1',
-        'Tier2': 'tier2',
-        'Tier3': 'tier3',
-        'Tier4': 'tier4',
-        'Tier5': 'tier5'
+    // Kit türleri
+    const kitTypes = ["Nethpot", "Beast", "Diapot", "Smp", "Axe", "Gapple", "Elytra", "Crystal"];
+    const tierColors = {
+        "Tier1": "secondary",
+        "Tier2": "primary",
+        "Tier3": "info",
+        "Tier4": "warning",
+        "Tier5": "danger"
     };
     
-    // Kit butonlarına tıklama olayı ekle
-    kitButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Önceden seçili butonu temizle
-            kitButtons.forEach(btn => btn.classList.remove('active'));
-            
-            // Şu anki butonu aktif yap
-            this.classList.add('active');
-            
-            // Seçilen kit tipini al
-            const kitType = this.getAttribute('data-kit');
-            
-            // Başlığı güncelle
-            rankingTitle.textContent = `${kitType} Kit Sıralaması`;
-            rankingDescription.textContent = 'Yükleniyor...';
-            
-            // Verileri getir ve tabloyu doldur
-            fetchKitRankings(kitType);
-        });
+    // Kit butonlarını oluştur
+    const kitButtonsContainer = document.getElementById('kitButtons');
+    
+    kitTypes.forEach(kit => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'btn btn-outline-primary';
+        button.textContent = kit;
+        button.addEventListener('click', () => loadKitData(kit));
+        kitButtonsContainer.appendChild(button);
     });
     
-    // Belirli bir kit türü için sıralama verilerini getir
-    function fetchKitRankings(kitType) {
+    // Kit verilerini yükle
+    function loadKitData(kitType) {
+        // Aktif butonu değiştir
+        document.querySelectorAll('#kitButtons button').forEach(btn => {
+            if (btn.textContent === kitType) {
+                btn.classList.remove('btn-outline-primary');
+                btn.classList.add('btn-primary');
+            } else {
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-outline-primary');
+            }
+        });
+        
+        // Başlığı güncelle
+        document.getElementById('kitTitle').textContent = `${kitType} Kit Sıralaması`;
+        
+        // Yükleniyor mesajı
+        document.getElementById('infoMessage').textContent = "Veriler yükleniyor...";
+        document.getElementById('infoMessage').classList.remove('d-none');
+        document.getElementById('userList').classList.add('d-none');
+        
+        // Verileri API'den çek
         fetch(`/api/kits/${kitType}`)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Veri alınamadı');
+                    throw new Error('Veri yüklenirken bir hata oluştu');
                 }
                 return response.json();
             })
             .then(data => {
-                if (data.users && data.users.length > 0) {
-                    displayRankings(data.users);
-                    rankingDescription.textContent = `${data.users.length} oyuncu sıralamada`;
-                } else {
-                    rankingData.innerHTML = '';
-                    rankingDescription.textContent = 'Bu kit türü için henüz kayıt bulunmuyor';
+                const users = data.users;
+                
+                if (users.length === 0) {
+                    document.getElementById('infoMessage').textContent = 
+                        `${kitType} kit türü için henüz kayıt bulunmamaktadır.`;
+                    return;
                 }
+                
+                // Kullanıcıları tabloya ekle
+                const tableBody = document.getElementById('userListBody');
+                tableBody.innerHTML = '';
+                
+                users.forEach((user, index) => {
+                    const row = document.createElement('tr');
+                    
+                    // Tarih formatını düzenle
+                    const date = new Date(user.date);
+                    const formattedDate = `${date.toLocaleDateString('tr-TR')}`;
+                    
+                    // Tier badge rengi
+                    const tierBadge = `<span class="badge bg-${tierColors[user.tier] || 'secondary'}">${user.tier}</span>`;
+                    
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${user.username}</td>
+                        <td>${user.name}</td>
+                        <td>${tierBadge}</td>
+                        <td>${formattedDate}</td>
+                    `;
+                    
+                    tableBody.appendChild(row);
+                });
+                
+                // Listeyi göster
+                document.getElementById('infoMessage').classList.add('d-none');
+                document.getElementById('userList').classList.remove('d-none');
             })
             .catch(error => {
                 console.error('Hata:', error);
-                rankingDescription.textContent = 'Veriler yüklenirken bir hata oluştu';
+                document.getElementById('infoMessage').textContent = 
+                    'Veriler yüklenirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.';
             });
     }
     
-    // Sıralama verilerini tabloda göster
-    function displayRankings(users) {
-        rankingData.innerHTML = '';
-        
-        users.forEach((user, index) => {
-            const row = document.createElement('tr');
-            
-            // Tarih biçimlendirme
-            const date = new Date(user.date);
-            const formattedDate = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
-            
-            row.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${user.username}</td>
-                <td>${user.name}</td>
-                <td><span class="tier-badge ${tierClasses[user.tier]}">${user.tier}</span></td>
-                <td>${formattedDate}</td>
-            `;
-            
-            rankingData.appendChild(row);
-        });
-    }
+    // Sayfa yüklendiğinde ilk kit türünü yükle (isteğe bağlı)
+    // loadKitData(kitTypes[0]);
 });
